@@ -1,2 +1,3 @@
 # Food-Crawler
-HAHAHAHAHAHA
+This is a crawler for crawling the food information.
+
