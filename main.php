@@ -58,7 +58,7 @@ foreach($link as $val) {
     $rate = $foodRate->shouldCrawl($body);
     $shopName = $foodShopName->shouldCrawl($body);
 
-    implode([$address, $phoneNumber, $rate, $shopName], ',');
+    $foodInfoStr = implode([$address, $phoneNumber, $rate, $shopName], ',');
 
-    file_put_contents('db.shop.csv', FILE_APPEND);
+    file_put_contents('db.shop.csv', $foodInfoStr.PHP_EOL, FILE_APPEND);
 }
