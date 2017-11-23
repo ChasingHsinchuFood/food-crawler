@@ -21,13 +21,14 @@ $filePath = './db.shop.csv';
 file_exists($filePath) ? null : file_put_contents($filePath, 'address,phone_number,rate,shop_name,static_map_image'.PHP_EOL);
 
 $foodResource = new FoodResource();
-$resource = $foodResource::getSource(0);
 
-$place = urlencode('新竹');
 $page = 1;
 $endPage = 384;
 
 for(;$page<=$endPage;$page++) {
+    $resource = $foodResource::getSource(0);
+
+    $place = urlencode('新竹');
     $resource = str_replace(['{page}', '{place}'], [$page, $place], $resource);
 
     $request = new CrawlRequest($resource);
