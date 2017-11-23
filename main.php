@@ -45,6 +45,8 @@ for(;$page<=$endPage;$page++) {
     $foodLink = new CrawlFoodLink();
     $link = $foodLink->shouldCrawl($body);
 
+    sleep(rand(10, 20));
+
     foreach($link as $val) {
         $valArray = explode('-', $val);
         $val = $valArray[0];
@@ -84,6 +86,6 @@ for(;$page<=$endPage;$page++) {
         $foodInfoStr = implode([$address, $phoneNumber, $rate, $shopName, $image], ',');
         file_put_contents($filePath, $foodInfoStr.PHP_EOL, FILE_APPEND);
 
-        sleep(rand(1, 10));
+        sleep(rand(10, 20));
     }
 }
