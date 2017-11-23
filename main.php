@@ -1,5 +1,7 @@
 <?php
 
+set_time_limit(0);
+
 require 'vendor/autoload.php';
 
 use Food\Crawler\FoodResource;
@@ -24,15 +26,21 @@ $foodResource = new FoodResource();
 
 $page = 1;
 $endPage = 384;
+$timeout = 30;
 
 for(;$page<=$endPage;$page++) {
     $resource = $foodResource::getSource(0);
+
+    echo 'crawl '.$resource;
 
     $place = urlencode('新竹');
     $resource = str_replace(['{page}', '{place}'], [$page, $place], $resource);
 
     $request = new CrawlRequest($resource);
-    $body = $request->_request(15);
+
+    echo 'crawl '.$resource;
+
+    $body = $request->_request($timeout);
 
     $foodLink = new CrawlFoodLink();
     $link = $foodLink->shouldCrawl($body);
@@ -46,7 +54,7 @@ for(;$page<=$endPage;$page++) {
         }
 
         $request->setResource($val);
-        $body = $request->_request(15);
+        $body = $request->_request($timeout);
 
         $shopStatus = new CrawlShopStatus();
         $status = $shopStatus->shouldCrawl($body);
