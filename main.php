@@ -15,6 +15,9 @@ use Food\Crawler\CrawlShopStatus;
 use Food\Crawler\CrawlPhoneNumber;
 use Food\Crawler\CrawlMapImage;
 
+// get the started page number from arg2
+$page = isset($argv[1]) ? $argv[1] : 1;
+
 // seed the random number
 srand(5);
 
@@ -24,14 +27,11 @@ file_exists($filePath) ? null : file_put_contents($filePath, 'address,phone_numb
 
 $foodResource = new FoodResource();
 
-$page = 1;
 $endPage = 384;
 $timeout = 30;
 
 for(;$page<=$endPage;$page++) {
     $resource = $foodResource::getSource(0);
-
-    echo 'crawl '.$resource.PHP_EOL;
 
     $place = urlencode('新竹');
     $resource = str_replace(['{page}', '{place}'], [$page, $place], $resource);
@@ -54,6 +54,9 @@ for(;$page<=$endPage;$page++) {
         }
 
         $request->setResource($val);
+
+        echo 'crawl '.$val.PHP_EOL;
+
         $body = $request->_request($timeout);
 
         $shopStatus = new CrawlShopStatus();
