@@ -11,6 +11,14 @@ use Food\Crawler\CrawlRate;
 use Food\Crawler\CrawlShopName;
 use Food\Crawler\CrawlShopStatus;
 use Food\Crawler\CrawlPhoneNumber;
+use Food\Crawler\CrawlMapImage;
+
+// seed the random number
+srand(5);
+
+// initialize the CSV file
+$filePath = './db.shop.csv';
+file_exists($filePath) ? null : file_put_contents($filePath, 'address,phone_number,rate,shop_name,static_map_image');
 
 $foodResource = new FoodResource();
 $resource = $foodResource::getSource(0);
@@ -51,14 +59,17 @@ foreach($link as $val) {
     $foodPhoneNumber = new CrawlPhoneNumber();
     $foodRate = new CrawlRate();
     $foodShopName = new CrawlShopName();
+    $foodImage = new CrawlMapImage();
 
     $address = $foodAddress->shouldCrawl($body);
     //$businessHours = $foodBusinessHours->shouldCrawl($body);
     $phoneNumber = $foodPhoneNumber->shouldCrawl($body);
     $rate = $foodRate->shouldCrawl($body);
     $shopName = $foodShopName->shouldCrawl($body);
+    $image = $foodImage->shouldCrawl($body);
 
-    $foodInfoStr = implode([$address, $phoneNumber, $rate, $shopName], ',');
+    $foodInfoStr = implode([$address, $phoneNumber, $rate, $shopName, $image], ',');
+    file_put_contents($filePath, $foodInfoStr.PHP_EOL, FILE_APPEND);
 
-    file_put_contents('./db.shop.csv', $foodInfoStr.PHP_EOL, FILE_APPEND);
+    sleep(rand(1, 10));
 }
