@@ -1,7 +1,6 @@
 <?php
 
 require 'vendor/autoload.php';
-//require './bootstrap.php';
 
 use Food\Crawler\FoodResource;
 use Food\Crawler\CrawlRequest;
@@ -47,8 +46,6 @@ foreach($link as $val) {
         continue;
     }
 
-    $handle = fopen('db.shop.csv', 'a+');
-
     $foodAddress = new CrawlAddress();
     //$foodBusinessHours = new CrawlBusinessHours();
     $foodPhoneNumber = new CrawlPhoneNumber();
@@ -62,4 +59,6 @@ foreach($link as $val) {
     $shopName = $foodShopName->shouldCrawl($body);
 
     implode([$address, $phoneNumber, $rate, $shopName], ',');
+
+    file_put_contents('db.shop.csv', FILE_APPEND);
 }
