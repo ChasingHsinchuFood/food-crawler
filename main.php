@@ -18,7 +18,7 @@ srand(5);
 
 // initialize the CSV file
 $filePath = './db.shop.csv';
-file_exists($filePath) ? null : file_put_contents($filePath, 'address,phone_number,rate,shop_name,static_map_image');
+file_exists($filePath) ? null : file_put_contents($filePath, 'address,phone_number,rate,shop_name,static_map_image'.PHP_EOL);
 
 $foodResource = new FoodResource();
 $resource = $foodResource::getSource(0);
