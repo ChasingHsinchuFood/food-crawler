@@ -3,7 +3,7 @@
 /**
  * This is the CrawlAddress class.
  *
- * Crawl the shop address from the response body strings.
+ * Crawl the shop address image from the response body strings.
  */
 
 namespace Food\Crawler;

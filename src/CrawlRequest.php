@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * This is the CrawlRequest class.
+ *
+ * set the url source and send the HTTP request to get response body strings.
+ */
+
 namespace Food\Crawler;
 
 use GuzzleHttp\Client;
@@ -31,6 +37,8 @@ class CrawlRequest
             $response = $client->get($this->resource);
         } catch(ConnectException $e) {
             if(stristr($e->getMessage(), 'cURL error 28') !== false) {
+                srand(5);
+                sleep(rand(1, 10));
                 $response = $client->get($this->resource);
             }
         }
