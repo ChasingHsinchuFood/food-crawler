@@ -1,0 +1,65 @@
+<?php
+
+require 'vendor/autoload.php';
+//require './bootstrap.php';
+
+use Food\Crawler\FoodResource;
+use Food\Crawler\CrawlRequest;
+use Food\Crawler\CrawlFoodLink;
+use Food\Crawler\CrawlBusinessHours;
+use Food\Crawler\CrawlAddress;
+use Food\Crawler\CrawlRate;
+use Food\Crawler\CrawlShopName;
+use Food\Crawler\CrawlShopStatus;
+use Food\Crawler\CrawlPhoneNumber;
+
+$foodResource = new FoodResource();
+$resource = $foodResource::getSource(0);
+
+$place = urlencode('新竹');
+$page = 1;
+$endPage = 384;
+
+$resource = str_replace(['{page}', '{place}'], [$page, $place], $resource);
+
+$request = new CrawlRequest($resource);
+$body = $request->_request(15);
+
+$foodLink = new CrawlFoodLink();
+$link = $foodLink->shouldCrawl($body);
+
+foreach($link as $val) {
+    $valArray = explode('-', $val);
+    $val = $valArray[0];
+
+    if($val == 'not') {
+        continue;
+    }
+
+    $request->setResource($val);
+    $body = $request->_request(15);
+
+    $shopStatus = new CrawlShopStatus();
+    $status = $shopStatus->shouldCrawl($body);
+
+    // if shop status is not the empty string, the shop has been closed.
+    if($status != '') {
+        continue;
+    }
+
+    $handle = fopen('db.shop.csv', 'a+');
+
+    $foodAddress = new CrawlAddress();
+    //$foodBusinessHours = new CrawlBusinessHours();
+    $foodPhoneNumber = new CrawlPhoneNumber();
+    $foodRate = new CrawlRate();
+    $foodShopName = new CrawlShopName();
+
+    $address = $foodAddress->shouldCrawl($body);
+    //$businessHours = $foodBusinessHours->shouldCrawl($body);
+    $phoneNumber = $foodPhoneNumber->shouldCrawl($body);
+    $rate = $foodRate->shouldCrawl($body);
+    $shopName = $foodShopName->shouldCrawl($body);
+
+    implode([$address, $phoneNumber, $rate, $shopName], ',');
+}

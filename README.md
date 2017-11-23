@@ -1,11 +1,20 @@
 # Food-Crawler
 This is a crawler for crawling the food information.
 
-# Data resource
+# Attention
+The crawler is only for the ipeen website now.
 
-- [沐光奇跡](http://www.life.inhs.tw/?cat=33)
-- [新竹美食排行榜](http://www.ihsinchu.com/blog/post/114312002-%E6%96%B0%E7%AB%B9%E7%BE%8E%E9%A3%9F)
-- [FonFood](http://www.fonfood.com/%E6%96%B0%E7%AB%B9%E5%B8%82)
-- [新竹不是美食沙漠](https://www.facebook.com/hsinchufoods/?ref=br_rs)
-- [新竹美食地圖](https://www.facebook.com/inHsinchu/?ref=br_rs)
-- [新竹滔客誌](https://hsinchu.talk.tw/ArticleClass.aspx?ClassID=4)
+# Main Data resource
+
+- [ipeen愛評網](http://www.ipeen.com.tw)
+- [yelp](https://yelp.com)
+
+# Other Data Resources
+
+- http://www.fonfood.com
+- https://hsinchu.talk.tw
+- http://www.life.inhs.tw/?tag=hcc
+- http://bobby1018.pixnet.net/blog/category/2873905
+- http://bobby1018.pixnet.net/blog/category/3090033
+- https://www.facebook.com/hsinchufoods/?ref=br_rs
+- http://www.ihsinchu.com/blog/post/114312002-%E6%96%B0%E7%AB%B9%E7%BE%8E%E9%A3%9F
