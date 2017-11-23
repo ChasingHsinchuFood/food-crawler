@@ -30,7 +30,7 @@ class CrawlRequest
         try {
             $response = $client->get($this->resource);
         } catch(ConnectException $e) {
-            if(stristr($e, 'cURL error 28') !== false) {
+            if(stristr($e->getMessage(), 'cURL error 28') !== false) {
                 $response = $client->get($this->resource);
             }
         }

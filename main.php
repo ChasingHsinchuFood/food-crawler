@@ -31,14 +31,14 @@ $timeout = 30;
 for(;$page<=$endPage;$page++) {
     $resource = $foodResource::getSource(0);
 
-    echo 'crawl '.$resource;
+    echo 'crawl '.$resource.PHP_EOL;
 
     $place = urlencode('新竹');
     $resource = str_replace(['{page}', '{place}'], [$page, $place], $resource);
 
     $request = new CrawlRequest($resource);
 
-    echo 'crawl '.$resource;
+    echo 'crawl '.$resource.PHP_EOL;
 
     $body = $request->_request($timeout);
 
